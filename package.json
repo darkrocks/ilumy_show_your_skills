@@ -1,0 +1,28 @@
+{
+  "name": "ilumy_show_your_skills",
+  "version": "1.0.0",
+  "description": "test task",
+  "main": "lib/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darkrocks/ilumy_show_your_skills.git"
+  },
+  "author": "dmitriy kazinov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/darkrocks/ilumy_show_your_skills/issues"
+  },
+  "homepage": "https://github.com/darkrocks/ilumy_show_your_skills#readme",
+  "dependencies": {
+    "bluebird": "^3.1.5",
+    "mongojs": "^2.3.0"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-mocha-cli": "^2.0.0",
+    "should": "^8.2.1"
+  }
+}
