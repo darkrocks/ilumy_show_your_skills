@@ -120,4 +120,27 @@ describe('Integration tests', function () {
         });
     })
   });
+
+  describe('GET /api/persons', function () {
+    before(function (done) {
+      meetingCollection.insert(meetingFixtures, done);
+    });
+
+    after(function (done) {
+      meetingCollection.remove({}, done);
+    });
+
+    it('returns persons with upcoming meetings from the database', function (done) {
+      request(app)
+        .get('/api/persons')
+        .expect(200)
+        .end(function (err, res) {
+          if (err) throw err;
+          res.body.should.be.instanceof(Array).and.have.lengthOf(10);
+          res.body[0].name.should.be.equal('Chuck');
+          res.body[0].upcomingMeeting.topic.should.be.equal('meeting-day-after-tomorrow');
+          done();
+        });
+    })
+  });
 });

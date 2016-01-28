@@ -91,7 +91,7 @@ describe('Repository tests', function () {
       it('should search for person', function (done) {
         meetingsRepo.findUpcoming({
           limit: 1,
-          persons: ['arnold']
+          persons: ['Arnold']
         })
           .then((items) => {
             items.should.be.instanceof(Array).and.have.lengthOf(1);

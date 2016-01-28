@@ -7,32 +7,32 @@ module.exports = [
     topic: 'meeting-day-after-tomorrow',
     start: utils.getDateInFuture(2),
     persons: [
-      'chuck',
-      'jackie'
+      'Chuck',
+      'Jackie'
     ]
   },
   {
     topic: 'meeting-after-3-days',
     start: utils.getDateInFuture(3),
     persons: [
-      'chuck',
-      'arnold',
-      'jackie'
+      'Chuck',
+      'Arnold',
+      'Jackie'
     ]
   },
   {
     topic: 'meeting-tomorrow',
     start: utils.getDateInFuture(1),
     persons: [
-      'jackie'
+      'Jackie'
     ]
   },
   {
     topic: 'meeting-yesterday',
     start: utils.getDateInFuture(-1),
     persons: [
-      'chuck',
-      'arnold'
+      'Chuck',
+      'Arnold'
     ]
   }
 ];
