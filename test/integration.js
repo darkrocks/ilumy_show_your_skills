@@ -96,4 +96,28 @@ describe('Integration tests', function () {
         });
     })
   });
+
+  describe('GET /api/meetings', function () {
+    before(function (done) {
+      meetingCollection.insert(meetingFixtures, done);
+    });
+
+    after(function (done) {
+      meetingCollection.remove({}, done);
+    });
+
+    it('returns items from the database', function (done) {
+      request(app)
+        .get('/api/meetings')
+        .query({'limit': 2})
+        .expect(200)
+        .end(function (err, res) {
+          if (err) throw err;
+          res.body.should.be.instanceof(Array).and.have.lengthOf(2);
+          res.body[0].topic.should.be.equal('meeting-tomorrow');
+          res.body[1].topic.should.be.equal('meeting-day-after-tomorrow');
+          done();
+        });
+    })
+  });
 });
