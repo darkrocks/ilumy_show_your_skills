@@ -1,10 +1,9 @@
 require('should');
+
 const db = require('../lib/repository/db');
 const meetingsRepo = require('../lib/repository/meetings');
 const meetingFixtures = require('./fixtures/meetings');
-
 const meetingCollection = db().collection('meetings');
-
 
 describe('Repository tests', function () {
   describe('Meetings', function () {
