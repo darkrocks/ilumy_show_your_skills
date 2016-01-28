@@ -4,12 +4,15 @@
   "description": "test task",
   "main": "lib/app.js",
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test",
+    "start": "node lib/app.js"
   },
   "author": "dmitriy kazinov",
   "license": "ISC",
   "dependencies": {
+    "angular": "^1.4.9",
     "array-shuffle": "^1.0.0",
+    "body-parser": "^1.14.2",
     "bootstrap": "^3.3.6",
     "express": "^4.13.4",
     "moment": "^2.11.1",
