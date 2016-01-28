@@ -4,21 +4,14 @@
   "description": "test task",
   "main": "lib/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/darkrocks/ilumy_show_your_skills.git"
+    "test": "grunt test"
   },
   "author": "dmitriy kazinov",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/darkrocks/ilumy_show_your_skills/issues"
-  },
-  "homepage": "https://github.com/darkrocks/ilumy_show_your_skills#readme",
   "dependencies": {
     "array-shuffle": "^1.0.0",
     "bootstrap": "^3.3.6",
+    "express": "^4.13.4",
     "moment": "^2.11.1",
     "mongojs": "^2.3.0"
   },
