@@ -1,0 +1,8 @@
+<div class="container">
+  <h1>Ilumy test by Dmitriy Kazinov</h1>
+  <form class="form-inline" name="addRandomForm">
+    <input type="text" name="input" class="form-control" placeholder="Topic" ng-model="model.randomMeetingTopic" required>
+    <button class="btn btn-default" ng-click="addRandomMeetings()">Add 5000 random meetings</button>
+  </form>
+  <div class="amount-sign">Total amount of meetings in the database: {{model.meetingsCount}}</div>
+</div>
