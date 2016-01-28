@@ -1,7 +1,7 @@
 require('should');
 const db = require('../lib/repository/db');
-var meetingsRepo = require('../lib/repository/meetings');
-var meetingFixtures = require('./fixtures/meetings');
+const meetingsRepo = require('../lib/repository/meetings');
+const meetingFixtures = require('./fixtures/meetings');
 
 const meetingCollection = db().collection('meetings');
 
@@ -16,6 +16,42 @@ describe('Repository tests', function () {
     after(function (done) {
       var fixtureMeetingsTopics = meetingFixtures.map((meeting) => meeting.topic);
       meetingCollection.remove({ topic: { $in: fixtureMeetingsTopics } }, done);
+    });
+
+    describe('insert() function', function () {
+
+      const testMeetings = [
+        {
+          topic: 'insert-test-1'
+        },
+        {
+          topic: 'insert-test-2'
+        }
+      ];
+
+      var testMeetingsTopics = testMeetings.map((meeting) => meeting.topic);
+
+      after(function (done) {
+        meetingCollection.remove({ topic: { $in: testMeetingsTopics } }, done);
+      });
+
+      it('inserts items into database', function (done) {
+
+        meetingsRepo.insert(testMeetings, function (err) {
+          if (err) {
+            return done(err);
+          }
+
+          meetingCollection.find({ topic: { $in: testMeetingsTopics } }, (err, items) => {
+            if (err) {
+              return done(err);
+            }
+
+            items.should.be.instanceof(Array).and.have.lengthOf(2);
+            done();
+          });
+        });
+      });
     });
 
     describe('findUpcoming() function', function () {
@@ -42,7 +78,9 @@ describe('Repository tests', function () {
       });
 
       it('should limit results', function (done) {
-        meetingsRepo.findUpcoming(2, function (err, items) {
+        meetingsRepo.findUpcoming({
+          limit: 2
+        }, function (err, items) {
           if (err) {
             return done(err);
           }
@@ -52,18 +90,19 @@ describe('Repository tests', function () {
           done();
         });
       });
-    });
 
-    describe('insert() function', function () {
-      it('inserts items into database', function (done) {
-        done();
-        //meetingsRepo.insert(meetingsToBeInserted, function (err) {
-        //  if (err) {
-        //    return done(err);
-        //  }
-        //
-        //
-        //});
+      it('should search for person', function (done) {
+        meetingsRepo.findUpcoming({
+          limit: 1,
+          persons: [ 'arnold' ]
+        }, function (err, items) {
+          if (err) {
+            return done(err);
+          }
+          items.should.be.instanceof(Array).and.have.lengthOf(1);
+          items[0].topic.should.equal('meeting-after-3-days');
+          done();
+        });
       });
     });
   });
