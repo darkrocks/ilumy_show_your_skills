@@ -5,7 +5,8 @@ process.env.NODE_ENV = 'test';
 var request = require('supertest');
 require('should');
 
-var app = require('../lib/app');
+const meetingFixtures = require('./fixtures/meetings');
+const app = require('../lib/app');
 const db = require('../lib/repository/db');
 const meetingCollection = db().collection('meetings');
 
@@ -73,5 +74,26 @@ describe('Integration tests', function () {
           });
       });
     });
+  });
+
+  describe('GET /api/meetings/count', function () {
+    before(function (done) {
+      meetingCollection.insert(meetingFixtures, done);
+    });
+
+    after(function (done) {
+      meetingCollection.remove({}, done);
+    });
+
+    it('returns count of items in the database', function (done) {
+      request(app)
+        .get('/api/meetings/count')
+        .expect(200)
+        .end(function (err, res) {
+          if (err) throw err;
+          res.body.should.be.equal(4);
+          done();
+        });
+    })
   });
 });
