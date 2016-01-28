@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/darkrocks/ilumy_show_your_skills#readme",
   "dependencies": {
-    "bluebird": "^3.1.5",
+    "array-shuffle": "^1.0.0",
     "mongojs": "^2.3.0"
   },
   "devDependencies": {

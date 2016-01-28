@@ -1,3 +1,5 @@
+'use strict';
+
 require('should');
 
 const db = require('../lib/repository/db');
@@ -14,7 +16,7 @@ describe('Repository tests', function () {
 
     after(function (done) {
       var fixtureMeetingsTopics = meetingFixtures.map((meeting) => meeting.topic);
-      meetingCollection.remove({ topic: { $in: fixtureMeetingsTopics } }, done);
+      meetingCollection.remove({topic: {$in: fixtureMeetingsTopics}}, done);
     });
 
     describe('insert() function', function () {
@@ -31,77 +33,71 @@ describe('Repository tests', function () {
       var testMeetingsTopics = testMeetings.map((meeting) => meeting.topic);
 
       after(function (done) {
-        meetingCollection.remove({ topic: { $in: testMeetingsTopics } }, done);
+        meetingCollection.remove({topic: {$in: testMeetingsTopics}}, done);
       });
 
       it('inserts items into database', function (done) {
+        meetingsRepo.insert(testMeetings)
+          .then(() => {
+            meetingCollection.find({topic: {$in: testMeetingsTopics}}, (err, items) => {
+              if (err) {
+                return done(err);
+              }
 
-        meetingsRepo.insert(testMeetings, function (err) {
-          if (err) {
-            return done(err);
-          }
-
-          meetingCollection.find({ topic: { $in: testMeetingsTopics } }, (err, items) => {
-            if (err) {
-              return done(err);
-            }
-
-            items.should.be.instanceof(Array).and.have.lengthOf(2);
-            done();
-          });
-        });
+              items.should.be.instanceof(Array).and.have.lengthOf(2);
+              done();
+            });
+          })
+          .catch(done);
       });
     });
 
     describe('findUpcoming() function', function () {
       it('should return 3 upcoming meetings', function (done) {
-        meetingsRepo.findUpcoming(null, function (err, items) {
-          if (err) {
-            return done(err);
-          }
-          items.should.be.instanceof(Array).and.have.lengthOf(3);
-          done();
-        });
+        meetingsRepo.findUpcoming(null)
+          .then((items) => {
+            items.should.be.instanceof(Array).and.have.lengthOf(3);
+            done();
+          })
+          .catch(done);
       });
 
       it('should return meetings sorted by date ascending', function (done) {
-        meetingsRepo.findUpcoming(null, function (err, items) {
-          if (err) {
-            return done(err);
-          }
-          items[0].topic.should.equal('meeting-tomorrow');
-          items[1].topic.should.equal('meeting-day-after-tomorrow');
-          items[2].topic.should.equal('meeting-after-3-days');
-          done();
-        });
+        meetingsRepo.findUpcoming(null)
+          .then((items) => {
+            items[0].topic.should.equal('meeting-tomorrow');
+            items[1].topic.should.equal('meeting-day-after-tomorrow');
+            items[2].topic.should.equal('meeting-after-3-days');
+            done();
+          })
+          .catch(done);
       });
 
       it('should limit results', function (done) {
         meetingsRepo.findUpcoming({
           limit: 2
-        }, function (err, items) {
-          if (err) {
-            return done(err);
-          }
-          items.should.be.instanceof(Array).and.have.lengthOf(2);
-          items[0].topic.should.equal('meeting-tomorrow');
-          items[1].topic.should.equal('meeting-day-after-tomorrow');
-          done();
-        });
+        })
+          .then((items) => {
+            items.should.be.instanceof(Array).and.have.lengthOf(2);
+            items[0].topic.should.equal('meeting-tomorrow');
+            items[1].topic.should.equal('meeting-day-after-tomorrow');
+            done();
+          })
+          .catch(done);
+
       });
 
       it('should search for person', function (done) {
         meetingsRepo.findUpcoming({
           limit: 1,
-          persons: [ 'arnold' ]
-        }, function (err, items) {
-          if (err) {
-            return done(err);
-          }
-          items.should.be.instanceof(Array).and.have.lengthOf(1);
-          items[0].topic.should.equal('meeting-after-3-days');
-          done();
-        });
+          persons: ['arnold']
+        })
+          .then((items) => {
+            items.should.be.instanceof(Array).and.have.lengthOf(1);
+            items[0].topic.should.equal('meeting-after-3-days');
+            done();
+          })
+          .catch(done);
       });
     });
   });
