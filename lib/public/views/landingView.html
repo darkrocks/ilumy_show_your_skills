@@ -4,5 +4,28 @@
     <input type="text" name="input" class="form-control" placeholder="Topic" ng-model="model.randomMeetingTopic" required>
     <button class="btn btn-default" ng-click="addRandomMeetings()">Add 5000 random meetings</button>
   </form>
-  <div class="amount-sign">Total amount of meetings in the database: {{model.meetingsCount}}</div>
+
+  <div class="control-top-ident">Total amount of meetings in the database: {{model.meetingsCount}}</div>
+
+  <h3>Upcoming events</h3>
+  <table class="table table-bordered control-top-ident">
+    <thead>
+    <tr>
+      <th>Topic</th>
+      <th>Start</th>
+      <th>End</th>
+      <th>Persons</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="meeting in model.upcomingMeetings">
+      <td>{{meeting.topic}}</td>
+      <td>{{meeting.start}}</td>
+      <td>{{meeting.end}}</td>
+      <td>{{meeting.persons.join(', ')}}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="control-top-ident">Average amount of people in the next 20 meetings: {{model.averageAmountOfPeople}}</div>
 </div>

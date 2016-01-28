@@ -19,6 +19,7 @@
   "dependencies": {
     "array-shuffle": "^1.0.0",
     "bootstrap": "^3.3.6",
+    "moment": "^2.11.1",
     "mongojs": "^2.3.0"
   },
   "devDependencies": {
