@@ -138,7 +138,7 @@ describe('Integration tests', function () {
           if (err) throw err;
           res.body.should.be.instanceof(Array).and.have.lengthOf(10);
           res.body[0].name.should.be.equal('Chuck');
-          res.body[0].upcomingMeeting.topic.should.be.equal('meeting-day-after-tomorrow');
+          res.body[0].meeting.topic.should.be.equal('meeting-day-after-tomorrow');
           done();
         });
     })

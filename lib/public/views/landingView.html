@@ -28,4 +28,22 @@
   </table>
 
   <div class="control-top-ident">Average amount of people in the next 20 meetings: {{model.averageAmountOfPeople}}</div>
+
+  <h3>Next meeting per person</h3>
+  <table class="table table-bordered control-top-ident">
+    <thead>
+    <tr>
+      <th>Person</th>
+      <th>Next meeting topic</th>
+      <th>Next meeting date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="person in model.persons">
+      <td>{{person.name}}</td>
+      <td>{{person.meeting.topic}}</td>
+      <td>{{person.meeting.start}}</td>
+    </tr>
+    </tbody>
+  </table>
 </div>
