@@ -1,4 +1,6 @@
 'use strict';
+// write test data to the testing database to make whole process simplier
+process.env.NODE_ENV = 'test';
 
 require('should');
 
@@ -15,8 +17,7 @@ describe('Repository tests', function () {
     });
 
     after(function (done) {
-      var fixtureMeetingsTopics = meetingFixtures.map((meeting) => meeting.topic);
-      meetingCollection.remove({topic: {$in: fixtureMeetingsTopics}}, done);
+      meetingCollection.remove({}, done);
     });
 
     describe('insert() function', function () {
